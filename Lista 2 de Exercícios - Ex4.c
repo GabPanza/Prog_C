@@ -8,7 +8,7 @@ void main (void){
     scanf("%c", &letra);
     sorteio= 'a' + (char)(rand()%26);
     if (((int)letra) == ((int)sorteio))
-        printf("Parabéns! Voce acertou a letra sorteada");
+        printf("Parabens! Voce acertou a letra sorteada");
     else if (((int)letra) > ((int)sorteio))
         printf("Esta letra eh maior que a sorteada");
     else
