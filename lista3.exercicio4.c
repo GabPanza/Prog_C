@@ -5,13 +5,6 @@ int divs(int n, int *pmax, int *min){
 		return 1;
 	}
 	contMax=n-1;
-#include<stdio.h>
-int divs(int n, int *pmax, int *min){
-	int contMin, contMax, var=0;
-	if(n <= 1){
-		return 1;
-	}
-	contMax=n-1;
 	for (contMin = 2; contMin*contMin <= n; contMin++) {
 		if (n%contMin == 0){   // d divide n
        		*min = contMin;

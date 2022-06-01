@@ -1,38 +1,33 @@
-#include<stdio.h>
-int main() {
+#include <stdio.h>
+void Fibonacci(int num)
+{
+    int i, proxTermo, numAnterior=1, numFinal=1, somaFib=2;
 
-    int a, b, aux, i, n;
+    if (num==1)
+        printf("%d", numFinal);
 
-    a = 0;
-    b = 1;
-
-    scanf("%d", &n);
-    printf("\nSerie de Fibonacci: ");
-    printf("%d ", b);
-
-    for(i = 0; i < n; i++) {
-
-        aux = a + b;
-        a = b;
-        b = a#include<stdio.h>
-int main() {
-
-    int a, b, aux, i, n;
-
-    a = 0;
-    b = 1;
-
-    scanf("%d", &n);
-    printf("\nSerie de Fibonacci: ");
-    printf("%d ", b);
-
-    for(i = 0; i < n; i++) {
-
-        aux = a + b;
-        a = b;
-        b = aux;
-
-        printf("%d ", aux);
+    if (num==2)
+    {
+        printf("%d ", numFinal);
+        printf("%d ", numAnterior);
     }
-    return 0;
+    else if (num>=3)
+    {
+        printf("%d ", numFinal);
+        printf("%d ", numAnterior);
+        for (i=2;i<num;i++)
+        {
+            somaFib = numFinal + numAnterior;
+            numAnterior = numFinal;
+            numFinal = somaFib;
+            printf("%d ", somaFib);
+        }
+    }
+}
+void main()
+{
+    int n;
+    printf("Digite quantos numeros a sequencia de Fibonacci deve ter: ");
+    scanf("%d", &n);
+    Fibonacci(n);
 }

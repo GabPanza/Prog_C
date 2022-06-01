@@ -1,24 +1,5 @@
 #include <stdio.h>
 #include <locale.h>
-
-
-#define N 10
-
-float media(int n, float *v){
-    float soma = 0;
-    for (int i = 0; i < n; i++)
-    {
-        soma += v[i];
-    }
-    return soma/n;
-}
-
-void main()
-{
-    f#include <stdio.h>
-#include <locale.h>
-
-
 #define N 10
 
 float media(int n, float *v){

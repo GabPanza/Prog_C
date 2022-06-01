@@ -1,15 +1,30 @@
-Ca
 #include <stdio.h>
 
- int main(void)
- {
-     int seg,min,hor;
-     printf("Digite o tempo total em segundos:");
-     scanf("%i", &seg);
-     hor=seg/3600;
-     seg=seg%3600;
-     min=seg/60;
-     seg=seg%60;
-     printf("total:%i:%i:%i/n,hor,min,seg");
-     return 0;
- }
+int main()
+{
+	int s;
+    int m, h;
+
+	printf("Digite quantos segundos: \n");
+	scanf_s("%d", &s);
+
+    //Pegando os minutos e as horas//
+	m = s / 60;
+	h = m / 60;
+
+    //Subatraindo os segundos e os minutos ao completar 60//
+	while (s >= 60)
+	{
+		s -= 60;
+	}
+	while (m >= 60)
+	{
+		m -= 60;
+	}
+
+	printf("%d horas ", h);
+	printf("%d minutos ", m);
+	printf("%d segundos ", s);
+
+	return 0;
+}

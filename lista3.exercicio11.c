@@ -1,29 +1,6 @@
 #include <stdio.h>
 #define N 2
 
-
-
-
-int main(){
-    char genero[N];
-    int idade[N];
-    float altura[N];
-    int i,contador=0, contHomem=0;
-    float total_altura = 0, media_altura,variancia;
-
-    for(i=0;i<N;i++){
-        printf("Digite seu genero: M ou F-> ");
-        scanf(" %c",&genero[i]);
-        printf("Digite sua idade: ");
-        scanf("%d",&idade[i]);
-        printf("Digite sua altura: ");
-        scanf("%f",&altura[i]);
-    #include <stdio.h>
-#define N 2
-
-
-
-
 int main(){
     char genero[N];
     int idade[N];
