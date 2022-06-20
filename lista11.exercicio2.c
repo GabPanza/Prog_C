@@ -4,52 +4,83 @@
 struct elemento
 {
     float info; /* Valor real armazenado */
-    struct elemento *prox; /* Ponteiro para o próximo elemento */
+    struct elemento *prox; /* Ponteiro para o prï¿½ximo elemento */
 };
 typedef struct elemento Elemento;
 
-void preenche(Elemento *lst, int indice)
+Elemento *preenche(Elemento *lst, int indice)
 {
+    Elemento* pos = lst;
     Elemento* novo = (Elemento*) malloc(sizeof(Elemento));
-    printf("Digite o elemento %d do vetor: ",indice+1);
-    scanf(" %f", &novo->info);
-    lst->info = novo->info;
-    lst->prox = novo->prox;
-}
-
-Elemento* copia(Elemento* lst)
-{
-    Elemento *copia = lst;
-    return copia;
-}
-
-void main()
-{
-    int tam;
-    int i;
-    printf("Digite o tamanho da lista: ");
-    scanf(" %d", &tam);
-
-    Elemento *lista = (Elemento*) malloc(tam*sizeof(Elemento));
-    if (lista==NULL)
+    if (novo==NULL)
     {
         printf("Error!");
         exit(1);
     }
 
-    for (i=0;i<tam;i++)
+    if (lst==NULL)
     {
-        preenche(&lista[i], i);
+        printf("Digite o elemento %d: ",indice+1);
+        scanf(" %f", &novo->info);
+        novo->prox = NULL;
+        return novo;
+    }
+    while (pos->prox!=NULL)
+    {
+        pos = pos->prox;
     }
 
-    Elemento *lstCopiada= copia(lista);
+    Elemento *final = pos;
+    final->prox = novo;
 
+    printf("Digite o elemento %d: ",indice+1);
+    scanf(" %f", &novo->info);
+    novo->prox = NULL;
+
+    return lst;
+}
+
+Elemento* copia(Elemento* lst)
+{
+    Elemento *copia = (Elemento*) malloc(sizeof(Elemento));
+    copia->info = lst->info;
+    copia->prox = lst->prox;
+    return copia;
+}
+
+void main()
+{
+    int i,indice=0,tam;
+    printf("Digite o tamanho da lista: ");
+    scanf(" %d", &tam);
+
+    Elemento *lista = NULL;
     for (i=0;i<tam;i++)
     {
-        printf("\nInfo %d do vetor copiado: ", i+1);
-        printf(" %f", lstCopiada[i].info);
+        lista = preenche(lista, i);
     }
 
-    free(lista);
-    free(lstCopiada);
+    Elemento *temp = lista;
+    Elemento *lstCopiada;
+    while (temp!=NULL)
+    {
+        lstCopiada = copia(temp);
+        temp = temp->prox;
+    }
+    while (lstCopiada != NULL)
+    {
+        printf("\nInfo %d do vetor copiado: ", indice+1);
+        printf(" %f", lstCopiada->info);
+        Elemento *temp = lstCopiada;
+        lstCopiada = lstCopiada->prox;
+        free(temp);
+        indice+=1;
+    }
+
+    while (lista!=NULL)
+    {
+        Elemento *temp = lista;
+        lista = lista->prox;
+        free(temp);
+    }
 }

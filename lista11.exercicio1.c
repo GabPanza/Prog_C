@@ -4,17 +4,39 @@
 struct elemento
 {
     float info; /* Valor real armazenado */
-    struct elemento *prox; /* Ponteiro para o próximo elemento */
+    struct elemento *prox; /* Ponteiro para o proximo elemento */
 };
 typedef struct elemento Elemento;
 
-void preenche(Elemento *lst, int indice)
+Elemento *preenche(Elemento *lst, int indice)
 {
+    Elemento* pos = lst;
     Elemento* novo = (Elemento*) malloc(sizeof(Elemento));
-    printf("Digite o elemento %d do vetor: ",indice+1);
+    if (novo==NULL)
+    {
+        printf("Error!");
+        exit(1);
+    }
+
+    if (lst==NULL)
+    {
+        printf("Digite o elemento %d: ",indice+1);
+        scanf(" %f", &novo->info);
+        novo->prox = NULL;
+        return novo;
+    }
+    while (pos->prox!=NULL)
+    {
+        pos = pos->prox;
+    }
+
+    Elemento *final = pos;
+    final->prox = novo;
+    printf("Digite o elemento %d: ",indice+1);
     scanf(" %f", &novo->info);
-    lst->info = novo->info;
-    lst->prox = novo->prox;
+    novo->prox = NULL;
+
+    return lst;
 }
 
 Elemento* filtra (Elemento* lst, float min, float max)
@@ -37,59 +59,65 @@ Elemento* filtra (Elemento* lst, float min, float max)
             return ant;
         }
     }
+    if ((ant!=NULL) && (ant->info<min || ant->info>max))
+    {
+        Elemento *temp = ant;
+        ant = ant->prox;
+        lst = ant;
+        free(temp);
+    }
     while (atual!=NULL)
     {
         if (atual->info < min || atual->info > max)
         {
             Elemento *temp = atual;
+            ant->prox = atual->prox;
             atual = atual->prox;
             free(temp);
         }
         else
         {
+            ant = atual;
             atual = atual->prox;
-            continue;
         }
     }
-
-    return ant;
+    return lst;
 }
 
 void main()
 {
-    int tam,Novotam=1;
-    int i;
+    int tam,Novotam=0;
+    int i, indice=0;
     float min, max;
-    printf("Digite o tamanho da lista: ");
+    printf("Digite a quantidade de nodes: ");
     scanf(" %d", &tam);
     printf("Digite um valor minimo qualquer: ");
     scanf(" %f", &min);
     printf("Digite um valor maximo qualquer: ");
     scanf(" %f", &max);
 
-    Elemento *lista = (Elemento*) malloc(tam*sizeof(Elemento));
-    if (lista==NULL)
-    {
-        printf("Error!");
-        exit(1);
-    }
+    Elemento *lista = NULL;
 
     for (i=0;i<tam;i++)
     {
-        preenche(&lista[i], i);
+        lista = preenche(lista, i);
     }
 
-    Elemento *lstResp = filtra(lista,min,max);
-    while (lstResp->prox != NULL)
+    lista = filtra(lista,min,max);
+    Elemento *pos = lista;
+    while (pos!= NULL)
     {
         Novotam++;
+        pos=pos->prox;
     }
-    for (i=0;i<Novotam;i++)
+    
+    while (lista!=NULL)
     {
-        printf("\nInfo %d do vetor de structs: ", i+1);
-        printf(" %f", lstResp[i].info);
+        printf("\nInfo %d do vetor de structs: ", indice+1);
+        printf(" %f", lista->info);
+        Elemento *temp = lista;
+        lista = lista->prox;
+        free(temp);
+        indice+=1;
     }
-
-    free(lista);
-    free(lstResp);
 }
