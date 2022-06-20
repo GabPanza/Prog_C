@@ -4,7 +4,7 @@
 struct elemento
 {
     float info; /* Valor real armazenado */
-    struct elemento *prox; /* Ponteiro para o pr�ximo elemento */
+    struct elemento *prox; /* Ponteiro para o proximo elemento */
 };
 typedef struct elemento Elemento;
 
@@ -42,10 +42,8 @@ Elemento *preenche(Elemento *lst, int indice)
 
 Elemento* copia(Elemento* lst)
 {
-    Elemento *copia = (Elemento*) malloc(sizeof(Elemento));
-    copia->info = lst->info;
-    copia->prox = lst->prox;
-    return copia;
+    Elemento* copiar = lst; 
+    return copiar;
 }
 
 void main()
@@ -60,13 +58,7 @@ void main()
         lista = preenche(lista, i);
     }
 
-    Elemento *temp = lista;
-    Elemento *lstCopiada;
-    while (temp!=NULL)
-    {
-        lstCopiada = copia(temp);
-        temp = temp->prox;
-    }
+    Elemento *lstCopiada = copia(lista);
     while (lstCopiada != NULL)
     {
         printf("\nInfo %d do vetor copiado: ", indice+1);
@@ -75,12 +67,5 @@ void main()
         lstCopiada = lstCopiada->prox;
         free(temp);
         indice+=1;
-    }
-
-    while (lista!=NULL)
-    {
-        Elemento *temp = lista;
-        lista = lista->prox;
-        free(temp);
     }
 }
